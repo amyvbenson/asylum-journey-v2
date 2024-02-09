@@ -1,0 +1,37 @@
+  [
+    {
+      "_id": 1,
+      "type": "stage",
+      "name": "Arrival"
+    },
+    {
+      "_id": 2,
+      "type": "stage",
+      "name": "Awaiting Decision"
+    },
+    {
+      "_id": 3,
+      "type": "stage",
+      "name": "Positive Decision"
+    },
+    {
+      "_id": 4,
+      "type": "stage",
+      "name": "Positive decision - no recourse to public funds"
+    },
+    {
+      "_id": 5,
+      "type": "stage",
+      "name": "Negative Decision - with state support (eg. section 4)"
+    },
+    {
+      "_id": 6,
+      "type": "stage",
+      "name": "Negative Decision - Destitute"
+    },
+    {
+      "_id": 7,
+      "type": "stage",
+      "name": "Gateway Protection Programme"
+    }
+  ]

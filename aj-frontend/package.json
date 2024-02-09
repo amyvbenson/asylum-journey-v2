@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@sanity/block-tools": "^3.28.0",
+    "@sanity/schema": "^3.28.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
