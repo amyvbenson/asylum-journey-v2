@@ -1,0 +1,75 @@
+* {
+  -webkit-tap-highlight-color: transparent;
+  word-wrap: break-word;
+}
+
+*,
+:before,
+:after {
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 100%;
+  background: var(--grey-f);
+  -webkit-overflow-scrolling: touch;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+
+  /* Disable iOS/WinMobile font size changes */
+  @media screen and (max-device-width: 480px) {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
+}
+
+body {
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  line-height: var(--line-height-base);
+}
+
+img {
+  -ms-interpolation-mode: bicubic;
+}
+
+strong {
+  font-weight: var(--font-weight-medium);
+}
+
+a {
+  color: #106da6;
+
+  &:hover,
+  &:focus {
+    color: darken(var(--color-blue, 10%));
+  }
+}
+
+h2 {
+  margin: var(--vr 0);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-large);
+}
+
+h3 {
+  padding: var(--vr 0);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-base);
+}
+
+p {
+  margin: var(--vr) 0 var(--vr) * 2;
+  font-size: var(--font-size-base);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}

@@ -1,0 +1,20 @@
+.tool {
+  padding: 44px 0 0 0;
+  padding-bottom: calc(var(--vr) * 9);
+
+  @media (min-width: 768px) {
+    padding-top: 80px;
+  }
+
+  &.filters-open {
+    padding-top: 202px;
+
+    @media (min-width: 768px) {
+      padding-top: 148px;
+    }
+
+    @media (min-width: 1200px) {
+      padding-top: calc(var(--vr) * 13);
+    }
+  }
+}
