@@ -1,0 +1,115 @@
+.home-filters {
+  margin: 0 auto 20px auto;
+  position: relative;
+  min-height: 145px;
+
+  @media (min-width: 768px) {
+    margin: 0 auto 50px auto;
+  }
+}
+
+.home-filters .tool__loader {
+  top: 70%;
+}
+
+.home-filters__stages {
+  margin: 10px auto;
+  max-width: 90%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.home-filters__stages li {
+  margin: 5px;
+}
+
+.home-filters__stage {
+  margin-bottom: 10px;
+  width: 120px;
+
+  cursor: pointer;
+  background: white;
+  border: none;
+  min-height: 100px;
+  padding: 8px 4px;
+  line-height: 1.1;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  border-bottom: 2px solid var(--stage-11-color);
+}
+
+.home-filters__stage:hover {
+  background: var(--grey-e);
+}
+
+.home-filters__stage.active {
+  color: white;
+  background: var(--stage-11-color);
+}
+
+.home-filters__stage.home-filters__category {
+  border-bottom: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.home-filters__stage.home-filters__stage-1 {
+  border-bottom: 2px solid var(--stage-1-color);
+}
+
+.home-filters__stage.home-filters__stage-1.active {
+  background: var(--stage-1-color);
+}
+
+.home-filters__stage.home-filters__stage-2 {
+  border-bottom: 2px solid var(--stage-2-color);
+}
+
+.home-filters__stage.home-filters__stage-2.active {
+  background: var(--stage-2-color);
+}
+
+.home-filters__stage.home-filters__stage-3 {
+  border-bottom: 2px solid var(--stage-3-color);
+}
+
+.home-filters__stage.home-filters__stage-3.active {
+  background: var(--stage-3-color);
+}
+
+.home-filters__stage.home-filters__stage-4 {
+  border-bottom: 2px solid var(--stage-4-color);
+}
+
+.home-filters__stage.home-filters__stage-4.active {
+  background: var(--stage-4-color);
+}
+
+.home-filters__stage.home-filters__stage-5 {
+  border-bottom: 2px solid var(--stage-5-color);
+}
+
+.home-filters__stage.home-filters__stage-5.active {
+  background: var(--stage-5-color);
+}
+
+.home-filters__stage.home-filters__stage-6 {
+  border-bottom: 2px solid var(--stage-6-color);
+}
+
+.home-filters__stage.home-filters__stage-6.active {
+  background: var(--stage-6-color);
+}
+
+.home-filters__stage.home-filters__stage-7 {
+  border-bottom: 2px solid var(--stage-7-color);
+}
+
+.home-filters__stage.home-filters__stage-7.active {
+  background: var(--stage-7-color);
+}

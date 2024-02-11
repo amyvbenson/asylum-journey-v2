@@ -1,0 +1,310 @@
+/* .filter-button {
+  --border: rgb(0 0 0/13%);
+  --highlight: rgb(255 255 255/20%);
+  --shadow: rgb(0 0 0/10%);
+  display: flex;
+  height: 2.5rem;
+  user-select: none;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+  border-radius: 0.5rem;
+  border-style: none;
+  background-color: hsl(204 20% 100%);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: hsl(204 4% 0%);
+  text-decoration-line: none;
+  outline-width: 2px;
+  outline-offset: 2px;
+  outline-color: hsl(204 100% 40%);
+  box-shadow: inset 0 0 0 1px var(--border), inset 0 2px 0 var(--highlight),
+    inset 0 -1px 0 var(--shadow), 0 1px 1px var(--shadow);
+  width: 200px;
+  justify-content: space-between;
+}
+
+.filter-button:where(.dark, .dark *) {
+  --border: rgb(255 255 255/10%);
+  --highlight: rgb(255 255 255/5%);
+  --shadow: rgb(0 0 0/25%);
+  background-color: hsl(204 20% 100% / 0.05);
+  color: hsl(204 20% 100%);
+  box-shadow: inset 0 0 0 1px var(--border), inset 0 -1px 0 1px var(--shadow),
+    inset 0 1px 0 var(--highlight);
+}
+
+.filter-button:not(:active):hover {
+  --border: rgb(0 0 0/33%);
+}
+
+.filter-button:where(.dark, .dark *):not(:active):hover {
+  --border: rgb(255 255 255/25%);
+}
+
+.filter-button[aria-disabled="true"] {
+  opacity: 0.5;
+}
+
+.filter-button[data-focus-visible] {
+  outline-style: solid;
+}
+
+.filter-button:active,
+.filter-button[data-active] {
+  padding-top: 0.125rem;
+  box-shadow: inset 0 0 0 1px var(--border), inset 0 2px 0 var(--border);
+}
+
+@media (min-width: 640px) {
+  .filter-button {
+    gap: 0.5rem;
+  }
+}
+
+.filter-button:active:where(.dark, .dark *),
+.filter-button[data-active]:where(.dark, .dark *) {
+  box-shadow: inset 0 0 0 1px var(--border), inset 0 1px 1px 1px var(--shadow);
+} */
+
+.filter__toggle,
+.filter__button {
+  /* padding: calc(var(--spacing) * 2); */
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  font-size: var(--font-size-small);
+}
+
+.filter__button {
+  background: none;
+  border: none;
+  padding-left: 34px;
+  position: relative;
+  line-height: 1.2;
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 8px;
+    top: 12px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--grey-d);
+    box-sizing: border-box;
+  }
+
+  @media (min-width: 768px) {
+    padding-left: 24px;
+
+    &:before {
+      left: 6px;
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  @media (min-width: 960px) {
+    padding-left: 34px;
+
+    &:before {
+      left: 8px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.filter__button--active {
+  &:before {
+    border-color: var(--color-green);
+  }
+
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 11px;
+    top: 15px;
+    width: 14px;
+    height: 14px;
+    background: var(--color-green);
+
+    @media (min-width: 768px) {
+      left: 9px;
+      width: 8px;
+      height: 8px;
+    }
+
+    @media (min-width: 960px) {
+      left: 11px;
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+.filter__toggle {
+  background: white;
+  font-weight: bold;
+  border: 1px solid var(--grey-d);
+  height: 47px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 12px 20px 12px 12px;
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &.filter__toggle--many {
+    padding-right: 86px;
+  }
+
+  span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  /* .icon {
+    position: absolute;
+    right: 8px;
+    height: 20px;
+    width: 20px;
+    fill: var(--color-text);
+  } */
+
+  @media (min-width: 768px) {
+    font-weight: normal;
+
+    /* .icon {
+      right: 4px;
+    } */
+
+    &.filter__toggle--many {
+      padding-right: 20px;
+    }
+  }
+
+  @media (min-width: 960px) {
+    /* .icon {
+      right: 8px;
+    } */
+
+    &.filter__toggle--many {
+      padding-right: 86px;
+    }
+  }
+}
+
+.filter__toggle-arrow {
+  position: absolute;
+  right: 8px;
+  height: 20px;
+  width: 20px;
+  fill: var(--color-text);
+}
+
+/* .filter__toggle--active {
+  .icon {
+    transform: rotate(180deg);
+  }
+} */
+
+.filter__more-count {
+  position: absolute;
+  right: 30px;
+  font-weight: bold;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+
+  @media (min-width: 960px) {
+    display: inline-block;
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.popover {
+  z-index: 50;
+  display: flex;
+  max-height: calc(100vh - 150px);
+  flex-direction: column;
+  overscroll-behavior: contain;
+  border: 1px solid var(--grey-d);
+  background-color: var(--color-white);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  overflow: auto;
+}
+
+.popover:focus-visible,
+.popover[data-focus-visible] {
+  outline: 2px solid var(--color-yellow);
+  outline-offset: -1px;
+}
+
+.select-item {
+  border-bottom: 1px solid var(--grey-d);
+  display: flex;
+  cursor: default;
+  scroll-margin: calc(var(--spacing) * 1.5);
+  align-items: center;
+  gap: calc(var(--spacing) * 1.5);
+  padding: calc(var(--spacing) * 1.5);
+  outline: none !important;
+}
+
+.select-item[aria-disabled="true"] {
+  opacity: 0.5;
+}
+
+.select-item[data-active-item] {
+  background-color: var(--color-yellow);
+  color: var(--color-text);
+}
+
+.select-item--all {
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+}
+
+.select-item-check {
+  height: 20px;
+  width: 20px;
+  border: 1px solid var(--grey-d);
+  flex-shrink: 0;
+}
+
+[aria-selected="true"] .select-item-check {
+  border-color: var(--color-green);
+}
+
+[aria-selected="true"] .select-item-check:after {
+  content: "";
+  display: block;
+  background: var(--color-green);
+  height: 14px;
+  width: 14px;
+  margin: 2px;
+}
+
+[data-active-item] .select-item-check {
+  border-color: var(--color-text);
+}
+
+[data-active-item][aria-selected="true"] .select-item-check:after {
+  background: var(--color-text);
+}

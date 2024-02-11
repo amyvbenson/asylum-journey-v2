@@ -1,0 +1,26 @@
+input {
+  font-family: Source Sans Pro, sans-serif;
+  font-size: inherit;
+  padding: 10px;
+  border: none;
+  border-radius: 0;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+input:focus {
+  outline: 2px solid var(--color-yellow);
+}
+
+.button-link {
+  border: none;
+  outline: none;
+  color: #fff;
+  /* TO DO variable */
+  background-color: #d11713;
+  padding: 8px 11px;
+  font-size: 1.2em;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  white-space: nowrap;
+}

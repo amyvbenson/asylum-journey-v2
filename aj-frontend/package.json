@@ -10,10 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ariakit/react": "^0.4.1",
+    "@portabletext/react": "^3.0.11",
+    "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/block-tools": "^3.28.0",
     "@sanity/schema": "^3.28.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

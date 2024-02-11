@@ -1,0 +1,23 @@
+.provider {
+  border-bottom: 1px solid var(--grey-e);
+}
+
+.provider__heading {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding: calc(var(--spacing) * 1.5) 0;
+  text-align: left;
+  width: 100%;
+}
+
+.provider__toggle {
+  color: var(--color-blue);
+  text-decoration: underline;
+}
+
+.provider__content {
+  padding-bottom: calc(var(--spacing) * 2);
+}

@@ -1,0 +1,119 @@
+.row {
+  position: relative;
+  display: flex;
+  border-top: 1px solid #ccc;
+  padding-top: calc(var(--spacing) * 8);
+  margin-bottom: calc(var(--spacing) * 2);
+
+  @media (min-width: 980px) {
+    padding-top: calc(var(--spacing) * 2);
+  }
+}
+
+.row:first-of-type {
+  border-top: none;
+}
+
+.row__heading {
+  position: absolute;
+  top: 0;
+  padding: var(--spacing);
+  font-weight: 400;
+  font-size: var(--font-size-base);
+  flex: none;
+
+  @media (min-width: 980px) {
+    width: calc(100% / var(--numColumns));
+    position: relative;
+    padding: var(--spacing) var(--spacing) calc(var(--spacing) * 2)
+      var(--spacing);
+    margin: 0;
+  }
+}
+
+.column {
+  flex: 1 1;
+  min-width: 0;
+}
+
+.column--cols-1 {
+  display: flex;
+  flex-wrap: wrap;
+  li {
+    width: 50%;
+    margin-bottom: 10px;
+
+    @media (min-width: 768px) {
+      width: 20%;
+    }
+  }
+}
+
+.service-summary {
+  border: none;
+  display: block;
+  color: var(--color-text);
+  text-decoration: none;
+  border-bottom: 4px solid var(--color-text);
+  padding: var(--spacing);
+  margin: 0 2px;
+  background: var(--color-white);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  height: 100%;
+  font-size: var(--font-size-small);
+  line-height: calc(var(--spacing) * 3);
+  font-weight: normal;
+  text-align: left;
+  cursor: pointer;
+}
+
+.service-summary:hover {
+  background-color: var(--grey-e);
+}
+
+.service-summary--hidden {
+  background: #eee;
+  opacity: 0.8;
+}
+
+/* TO DO is the description ever shown? */
+.service-summary__description {
+  display: none;
+}
+
+@media (min-width: 980px) {
+  .service-summary {
+    font-size: var(--font-size-small);
+    padding: var(--spacing);
+    margin: var(--spacing);
+    line-height: calc(var(--spacing) * 3);
+    width: calc(100% - var(--spacing) * 2);
+    /* 
+    .column--cols-1 &,
+    .column--cols-2 &,
+    .column--cols-3 & {
+      padding: 10px 20px;
+      height: 100%;
+    } */
+  }
+
+  /* .service-summary__title {
+    .column--cols-1 &,
+    .column--cols-2 &,
+    .column--cols-3 & {
+      font-size: var(--font-size-base);
+      font-weight: bold;
+    }
+  }
+
+  .service-summary__description {
+    .column--cols-1 &,
+    .column--cols-2 &,
+    .column--cols-3 & {
+      display: block;
+      font-size: var(--font-size-small);
+      overflow: hidden;
+    }
+  } */
+}
