@@ -10,6 +10,10 @@ A Vite & React app.
 
 `npm i`
 
+#### Add environment variables
+
+copy `.env.example` to `.env` and populate the values (these can be found in Sanity),
+
 #### Environment variables
 
 Create a `.env` file and add the Sanity settings from the example file.

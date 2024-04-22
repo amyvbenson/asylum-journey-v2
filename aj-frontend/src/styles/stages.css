@@ -1,0 +1,43 @@
+.bg-stage-1 {
+  background: var(--stage-1-color);
+}
+.bg-stage-2 {
+  background: var(--stage-2-color);
+}
+.bg-stage-3 {
+  background: var(--stage-3-color);
+}
+.bg-stage-4 {
+  background: var(--stage-4-color);
+}
+.bg-stage-5 {
+  background: var(--stage-5-color);
+}
+.bg-stage-6 {
+  background: var(--stage-6-color);
+}
+.bg-stage-7 {
+  background: var(--stage-7-color);
+}
+
+.border-stage-1 {
+  border-color: var(--stage-1-color);
+}
+.border-stage-2 {
+  border-color: var(--stage-2-color);
+}
+.border-stage-3 {
+  border-color: var(--stage-3-color);
+}
+.border-stage-4 {
+  border-color: var(--stage-4-color);
+}
+.border-stage-5 {
+  border-color: var(--stage-5-color);
+}
+.border-stage-6 {
+  border-color: var(--stage-6-color);
+}
+.border-stage-7 {
+  border-color: var(--stage-7-color);
+}

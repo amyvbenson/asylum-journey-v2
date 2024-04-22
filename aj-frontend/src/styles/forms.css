@@ -8,19 +8,28 @@ input {
 }
 
 input:focus {
-  outline: 2px solid var(--color-yellow);
+  outline: 2px solid var(--color-focus);
 }
 
-.button-link {
+.button-primary {
   border: none;
   outline: none;
-  color: #fff;
-  /* TO DO variable */
-  background-color: #d11713;
-  padding: 8px 11px;
-  font-size: 1.2em;
-  font-weight: 600;
-  text-decoration: none;
+  color: var(--color-white);
+  cursor: pointer;
+  background-color: var(--color-red);
+  padding: var(--spacing) calc(var(--spacing) * 1.5);
+  font-weight: var(--font-weight-strong);
+
+  &:hover {
+    background-color: var(--color-dark-red);
+  }
+}
+
+a.button-primary {
   display: inline-block;
-  white-space: nowrap;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-white);
+  }
 }

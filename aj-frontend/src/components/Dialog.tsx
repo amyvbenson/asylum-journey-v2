@@ -17,7 +17,7 @@ export default function Dialog({ children, heading, loading, onClose }: Props) {
   return (
     <DialogComponent open onClose={onClose} className="dialog">
       {loading ? (
-        <div className="tool__loader">
+        <div className="loader">
           <img src="/public/loader-logo.svg" alt="" />
           Loading...
         </div>

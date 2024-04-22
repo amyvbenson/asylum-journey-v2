@@ -1,37 +1,41 @@
 :root {
   --spacing: 0.5rem;
+  --spacing-2: 1rem;
+  --spacing-3: 1.5rem;
+  --spacing-4: 2rem;
+  --spacing-5: 2.5rem;
+  --spacing-6: 3rem;
 
   --font-family-base: "Source Sans Pro", sans-serif;
 
   --font-size-base-px: 16px;
   --font-size-small: 0.8rem;
   --font-size-base: 1rem;
-  --font-size-large: 1.5rem;
-  --font-size-x-large: 2remf;
+  --font-size-large: 1.3rem;
+  --font-size-x-large: 2rem;
 
   --font-weight-strong: 600;
 
   --line-height-base: 1.5;
 
-  --color-green: #4caf50;
+  --color-green: #338033;
   --color-white: #fff;
-  --color-blue: #1692e0;
+  --color-blue: #127aba;
   --color-red: #d11713;
-  --color-orange: #e68344;
-  --color-yellow: #fd0;
-  --color-indigo: #846dce;
+  --color-dark-red: #740d0b;
+  --color-orange: #b85619;
+  --color-yellow: #e6c127;
+  --color-indigo: #775ec9;
   --color-violet: #b200b2;
   --color-dark-blue: #003078;
-  --color-warning: var(--color-red);
   --grey-a: #333;
   --grey-b: #666;
   --grey-d: #ccc;
   --grey-e: #ddd;
   --grey-f: #fbfbfb;
 
-  --color-primary: var(--color-red);
-  --color-secondary: var(--color-blue);
   --color-text: var(--grey-a);
+  --color-focus: #fd0;
 
   --stage-1-color: var(--color-red);
   --stage-2-color: var(--color-orange);
@@ -40,64 +44,7 @@
   --stage-5-color: var(--color-blue);
   --stage-6-color: var(--color-indigo);
   --stage-7-color: var(--color-violet);
-  --stage-11-color: var(--color-dark-blue);
-
-  --break-point-b: 480px;
-  --break-point-c: 600px;
-  --break-point-d: 768px;
-  --break-point-e: 980px;
-  --break-point-f: 1200px;
 
   --numColumnsSmall: 7;
   --numColumns: 8;
-}
-
-.bg-stage-1 {
-  background: var(--stage-1-color);
-}
-.bg-stage-2 {
-  background: var(--stage-2-color);
-}
-.bg-stage-3 {
-  background: var(--stage-3-color);
-}
-.bg-stage-4 {
-  background: var(--stage-4-color);
-}
-.bg-stage-5 {
-  background: var(--stage-5-color);
-}
-.bg-stage-6 {
-  background: var(--stage-6-color);
-}
-.bg-stage-7 {
-  background: var(--stage-7-color);
-}
-.bg-stage-11 {
-  background: var(--stage-11-color);
-}
-
-.border-stage-1 {
-  border-color: var(--stage-1-color) !important;
-}
-.border-stage-2 {
-  border-color: var(--stage-2-color) !important;
-}
-.border-stage-3 {
-  border-color: var(--stage-3-color) !important;
-}
-.border-stage-4 {
-  border-color: var(--stage-4-color) !important;
-}
-.border-stage-5 {
-  border-color: var(--stage-5-color) !important;
-}
-.border-stage-6 {
-  border-color: var(--stage-6-color) !important;
-}
-.border-stage-7 {
-  border-color: var(--stage-7-color) !important;
-}
-.border-stage-8 {
-  border-color: var(--stage-11-color) !important;
 }

@@ -140,7 +140,7 @@ export default function Services() {
     <main>
       <div className="tool">
         {isLoading ? (
-          <div className="tool__loader">
+          <div className="loader">
             <img src="/public/loader-logo.svg" alt="" />
             Loading...
           </div>

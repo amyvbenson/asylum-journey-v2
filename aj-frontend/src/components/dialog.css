@@ -21,7 +21,7 @@
   width: 92%;
   max-width: 1200px;
 
-  @media (min-width: var(--break-point-d)) {
+  @media (min-width: 769px) {
     top: 5vh;
     bottom: 5vh;
     margin-top: 0;
@@ -31,7 +31,7 @@
 }
 
 .dialog:focus-visible {
-  outline: 2px solid var(--color-yellow);
+  outline: 2px solid var(--color-focus);
 }
 
 .dialog__heading {

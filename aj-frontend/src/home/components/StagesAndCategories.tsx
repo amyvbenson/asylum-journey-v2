@@ -21,21 +21,23 @@ export default function StagesAndCategories({
   return (
     <div className="home-filters">
       {loading ? (
-        <div className="tool__loader">
-          <img src="/public/loader-logo.svg" alt="" />
+        <div className="loader">
+          <img src="/loader-logo.svg" alt="" />
           Loading...
         </div>
       ) : (
         <>
           <h2>Select a stage</h2>
           {!!stages.length && (
-            <ul className="home-filters__stages">
+            <ul className="home-filters-list">
               {stages.map((stage) => (
                 <li key={stage._id}>
                   <button
-                    className={`home-filters__stage home-filters__${
-                      stage._id
-                    } ${selectedStage === stage._id ? "active" : ""}`}
+                    className={`home-filters-list__item border-${stage._id} ${
+                      selectedStage === stage._id
+                        ? `active bg-${stage._id}`
+                        : ""
+                    }`}
                     type="button"
                     onClick={() => {
                       setSelectedStage(stage._id);
@@ -51,11 +53,11 @@ export default function StagesAndCategories({
           {showCategories && (
             <>
               <h2>Select a category</h2>
-              <ul className="home-filters__stages">
+              <ul className="home-filters-list">
                 {orderByPosition(categories).map((category) => (
                   <li key={category._id}>
                     <Link
-                      className="home-filters__stage home-filters__category"
+                      className="home-filters-list__item home-filters-list__item--category"
                       to={`/services?stages=${selectedStage}&categories=${category._id}`}
                     >
                       <span>{category.name}</span>
@@ -64,7 +66,7 @@ export default function StagesAndCategories({
                 ))}
                 <li>
                   <Link
-                    className="home-filters__stage home-filters__category"
+                    className="home-filters-list__item home-filters-list__item--category"
                     to="/services"
                   >
                     <span>All</span>
@@ -79,8 +81,8 @@ export default function StagesAndCategories({
             category, service users and provider to find the information you
             need.
           </p>
-          <a className="button-link" href="/services">
-            <span>View all services</span>
+          <a className="button-primary" href="/services">
+            View all services
           </a>
         </>
       )}

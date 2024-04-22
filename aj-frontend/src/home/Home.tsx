@@ -1,12 +1,11 @@
-import { Link } from "react-router-dom";
 import { getCategoriesQuery, getStagesQuery } from "../utils/queryBuilder";
 import useFetch from "../hooks/useFetch";
-import { useContext, useEffect } from "react";
 import { DataContext, DataContextType } from "../contexts/dataContext";
 import "./home.css";
 import Header from "./components/Header";
 import Search from "./components/Search";
 import StagesAndCategories from "./components/StagesAndCategories";
+import { useContext, useEffect } from "react";
 
 interface Category {
   _id: string;
@@ -34,29 +33,27 @@ export default function Home() {
     if (fetchedStages) {
       setStages(fetchedStages);
     }
-  }, [fetchedStages]);
+  }, [fetchedStages, setStages]);
 
   useEffect(() => {
     if (fetchedCategories) {
       setCategories(fetchedCategories);
     }
-  }, [fetchedCategories]);
+  }, [fetchedCategories, setCategories]);
 
   return (
     <main>
       <Header />
-      <div className="container">
-        <div className="home-start">
-          <Search />
-          <StagesAndCategories
-            loading={loadingCategories || loadingStages}
-            categories={categories}
-            stages={stages}
-          />
-        </div>
+      <div className="home-container home-main">
+        <Search />
+        <StagesAndCategories
+          loading={loadingCategories || loadingStages}
+          categories={categories}
+          stages={stages}
+        />
       </div>
-      <div className="home-info">
-        <div className="container home-info-container">
+      <div className="home-info-row">
+        <div className="home-container home-info">
           <div>
             <h2>Welcome to the Asylum Journey</h2>
             <p>
@@ -91,45 +88,39 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="container">
+        <footer className="home-container home-footer">
           <h3>The Asylum Journey is supported by:</h3>
-          <ul className="home-logos">
+          <ul className="home-footer__logos">
             <li>
               <a href="https://www.sheffield.gov.uk/">
-                <img src="/public/scclogo.jpg" alt="Sheffield City Council" />
+                <img src="/scclogo.jpg" alt="Sheffield City Council" />
               </a>
             </li>
             <li>
-              <img src="/public/sheffugeeslogo.jpg" alt="Sheffugees" />
+              <img src="/sheffugeeslogo.jpg" alt="Sheffugees" />
             </li>
             <li>
               <a href="https://sheffield.cityofsanctuary.org/">
-                <img
-                  src="/public/coslogo.jpg"
-                  alt="Sheffield City of Sanctuary"
-                />
+                <img src="/coslogo.jpg" alt="Sheffield City of Sanctuary" />
               </a>
             </li>
             <li>
               <a href="http://www.assistsheffield.org.uk/">
-                <img src="/public/assistlogo.jpg" alt="Assist Sheffield" />
+                <img src="/assistlogo.jpg" alt="Assist Sheffield" />
               </a>
             </li>
             <li>
               <a href="http://www.vas.org.uk/">
-                <img
-                  src="/public/vaslogo.jpg"
-                  alt="Voluntary Action Sheffield"
-                />
+                <img src="/vaslogo.jpg" alt="Voluntary Action Sheffield" />
               </a>
             </li>
             <li>
               <a href="https://www.yoomee.com/">
-                <img src="/public/yoomeelogo.jpg" alt="Yoomee" />
+                <img src="/yoomeelogo.jpg" alt="Yoomee" />
               </a>
             </li>
           </ul>
-        </div>
+        </footer>
       </div>
     </main>
   );

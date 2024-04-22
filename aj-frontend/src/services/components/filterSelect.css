@@ -250,7 +250,7 @@
 
 .popover:focus-visible,
 .popover[data-focus-visible] {
-  outline: 2px solid var(--color-yellow);
+  outline: 2px solid var(--color-focus);
   outline-offset: -1px;
 }
 
@@ -270,7 +270,7 @@
 }
 
 .select-item[data-active-item] {
-  background-color: var(--color-yellow);
+  background-color: var(--color-focus);
   color: var(--color-text);
 }
 

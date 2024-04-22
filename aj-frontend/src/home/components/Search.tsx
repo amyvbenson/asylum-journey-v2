@@ -18,16 +18,19 @@ export default function Search() {
         <label htmlFor="search">Search for a service</label>
       </h2>
       <p>Search for specific services by keyword</p>
-      <input
-        className="home-search__input"
-        type="search"
-        name="search"
-        id="search"
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      <button className="button-link" type="submit">
-        Search
-      </button>
+      <div className="home-search__container">
+        <input
+          className="home-search__input"
+          placeholder="Search by keyword"
+          type="search"
+          name="search"
+          id="search"
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <button className="button-primary" type="submit">
+          Search
+        </button>
+      </div>
     </form>
   );
 }

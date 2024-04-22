@@ -50,36 +50,37 @@ a {
   }
 
   &:focus-visible {
-    background-color: var(--color-yellow);
+    background-color: var(--color-focus);
     outline: 2px solid transparent;
   }
 }
 
 button:focus-visible {
-  background-color: var(--color-yellow);
+  background-color: var(--color-focus);
   color: var(--color-text);
   outline: 2px solid transparent;
 }
 
+h1 {
+  font-size: var(--font-size-large);
+  font-weight: var(--font-weight-strong);
+}
+
 h2 {
-  margin: var(--spacing 0);
+  margin: var(--spacing) 0;
   font-weight: var(--font-weight-strong);
   font-size: var(--font-size-large);
 }
 
 h3 {
-  padding: var(--spacing 0);
+  padding: var(--spacing) 0;
   font-weight: var(--font-weight-strong);
   font-size: var(--font-size-base);
 }
 
 p {
-  margin-bottom: calc(var(--spacing) * 2);
+  margin-bottom: var(--spacing-2);
   font-size: var(--font-size-base);
-
-  &:last-child {
-    margin-bottom: 0;
-  }
 }
 
 b {
@@ -94,31 +95,12 @@ i {
 ul,
 ol {
   list-style: initial;
-  margin: 0 0 calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+  margin: 0 0 var(--spacing-2) calc(var(--spacing) * 3);
 }
 
 button {
   font-family: var(--font-family-base);
   font-size: var(--font-size-base);
-}
-
-.button {
-  border: 0;
-  border-bottom: 2px solid var(--grey-e);
-  background: var(--grey-f);
-  box-shadow: none;
-  color: var(--color-text);
-  cursor: pointer;
-  line-height: 1;
-  padding: var(--spacing);
-  text-align: center;
-  text-decoration: none;
-  vertical-align: top;
-  white-space: nowrap;
-
-  &:hover {
-    border-color: var(--grey-b);
-  }
 }
 
 .sr-only {
@@ -149,7 +131,7 @@ button {
   }
 }
 
-.tool__loader {
+.loader {
   height: calc(var(--spacing) * 16);
   width: calc(var(--spacing) * 16);
   position: absolute;
@@ -158,8 +140,9 @@ button {
   margin-top: calc(var(--spacing) * -8);
   margin-left: calc(var(--spacing) * -8);
   text-align: center;
-}
-.tool__loader img {
-  width: calc(var(--spacing) * 10);
-  animation: loader 1s infinite ease-in-out;
+
+  img {
+    width: calc(var(--spacing) * 10);
+    animation: loader 1s infinite ease-in-out;
+  }
 }
