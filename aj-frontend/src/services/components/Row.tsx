@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { DataContext, DataContextType } from "../../contexts/dataContext";
 import { Category, ServiceSummary, Stage } from "../../types/dataTypes";
 import "./row.css";
-import orderByName from "../../utils/orderByName";
 
 interface Props {
   category: Category;
@@ -62,7 +61,7 @@ export default function Row({
 interface ColumnProps {
   serviceSummaries: ServiceSummary[];
   stage: Stage;
-  onClickService: (serviceId: string) => void;
+  onClickService: (slug: string) => void;
 }
 
 function Column({ serviceSummaries, stage, onClickService }: ColumnProps) {
@@ -72,12 +71,12 @@ function Column({ serviceSummaries, stage, onClickService }: ColumnProps) {
 
   return (
     <ul className="column">
-      {orderByName(services).map((item) => {
+      {services.map((item) => {
         return (
           <li key={item._id}>
             <button
               className={`service-summary border-${stage._id}`}
-              onClick={() => onClickService(item._id)}
+              onClick={() => onClickService(item.slug.current)}
               type="button"
             >
               {item.name}

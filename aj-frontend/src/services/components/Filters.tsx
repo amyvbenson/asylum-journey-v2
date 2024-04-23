@@ -1,122 +1,177 @@
 import { DataContext, DataContextType } from "../../contexts/dataContext";
 import FilterSelect from "./FilterSelect";
+import FilterSearch from "./FilterSearch";
+import InfoDialog from "./InfoDialog";
 import "./filters.css";
-import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { useDesktopMedia } from "../../hooks/useMedia";
+import { useContext, useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 
-interface Props {
-  onFilterCategories: (categories: string[]) => void;
-  onFilterProviders: (providers: string[]) => void;
-  onFilterResources: (resources: string[]) => void;
-  onFilterStages: (stages: string[]) => void;
-  onShowAll: () => void;
-}
-
-export default function Filters({
-  onFilterCategories,
-  onFilterProviders,
-  onFilterResources,
-  onFilterStages,
-  onShowAll,
-}: Props) {
+export default function Filters() {
   const { categories, providers, resources, stages } = useContext(
     DataContext
   ) as DataContextType;
 
-  const [resetFilters, toggleResetFilters] = useState<boolean>(false);
+  const { isMedia: isDesktopMedia } = useDesktopMedia();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [showFilters, setShowFilters] = useState<boolean>(true);
+
+  const [showSecondaryOptions, setShowSecondaryOptions] =
+    useState<boolean>(false);
+
+  const [showInfoDialog, setShowInfoDialog] = useState<boolean>(false);
+
+  useEffect(() => {
+    setShowFilters(isDesktopMedia);
+  }, [isDesktopMedia]);
 
   return (
-    <div className="filter-bar">
-      <div className="filter-bar__primary">
-        <div className="filter-bar__logo">
-          <h1>
-            <Link to="../" className="logo">
-              <img src="../public/logo-basic.png" alt="The Asylum Journey" />
-            </Link>
-          </h1>
-        </div>
-        <div className="filter-bar__section">
-          <FilterSelect
-            label="Stages"
-            options={stages}
-            reset={resetFilters}
-            selectAllLabel="Show all stages"
-            onChange={(stages) => {
-              onFilterStages(stages);
-              toggleResetFilters(false);
-            }}
-          />
-        </div>
-        <div className="filter-bar__section">
-          <FilterSelect
-            label="Categories"
-            options={categories}
-            reset={resetFilters}
-            selectAllLabel="Show all categories"
-            onChange={(categories) => {
-              onFilterCategories(categories);
-              toggleResetFilters(false);
-            }}
-          />
-        </div>
-        <div className="filter-bar__section">
-          <FilterSelect
-            label="Providers"
-            modal
-            options={providers}
-            reset={resetFilters}
-            selectAllLabel="Show all providers"
-            onChange={(providers) => {
-              onFilterProviders(providers);
-              toggleResetFilters(false);
-            }}
-          />
-        </div>
-        <div className="filter-bar__section">
-          <FilterSelect
-            label="Resources"
-            options={resources}
-            reset={resetFilters}
-            selectAllLabel="Show all resources"
-            onChange={(resources) => {
-              onFilterResources(resources);
-              toggleResetFilters(false);
-            }}
-          />
-        </div>
+    <>
+      <div className={`filter-bar ${showFilters ? "active" : ""}`}>
+        <h1 className="filter-bar-logo">
+          <Link to="../" className="filter-bar-logo__link">
+            <img src="../logo-basic.png" alt="The Asylum Journey" />
+          </Link>
+        </h1>
 
-        <button
-          className="filter__toggle-button"
-          onClick={() => {
-            toggleResetFilters(true);
-            onShowAll();
-          }}
-          type="button"
-        >
-          Show all
-        </button>
+        {!isDesktopMedia && (
+          <button
+            aria-controls="filters"
+            aria-expanded={showFilters}
+            className={`button-transparent filter-bar__mobile-btn button-arrow ${
+              showFilters ? "active" : ""
+            }`}
+            onClick={() => setShowFilters(!showFilters)}
+            type="button"
+          >
+            Filter services
+          </button>
+        )}
+
+        <div className="filter-bar__inner" hidden={!showFilters} id="filters">
+          <div className="filter-bar__primary">
+            <div className="filter-bar__section">
+              <FilterSelect
+                label="Stages"
+                name="stages"
+                options={stages}
+                selectAllLabel="Show all stages"
+              />
+            </div>
+            <div className="filter-bar__section">
+              <FilterSelect
+                label="Categories"
+                name="categories"
+                options={categories}
+                selectAllLabel="Show all categories"
+              />
+            </div>
+            <div className="filter-bar__section">
+              <FilterSelect
+                combobox
+                label="Providers"
+                name="providers"
+                options={providers}
+                selectAllLabel="Show all providers"
+                onClickView={(id) => {
+                  setSearchParams(() => {
+                    searchParams.set("provider", id);
+                    return searchParams;
+                  });
+                }}
+              />
+            </div>
+            <div className="filter-bar__section">
+              <FilterSearch />
+            </div>
+
+            {isDesktopMedia && (
+              <>
+                <button
+                  className="button-outline filter-bar__button"
+                  onClick={() => {
+                    setSearchParams({});
+                  }}
+                  type="button"
+                >
+                  Show all
+                </button>
+                <button
+                  aria-controls="filters-secondary"
+                  aria-expanded={showSecondaryOptions}
+                  className={`button-outline filter-bar__button button-arrow ${
+                    showSecondaryOptions ? "active" : ""
+                  }`}
+                  type="button"
+                  onClick={() => setShowSecondaryOptions(!showSecondaryOptions)}
+                >
+                  More options
+                </button>
+              </>
+            )}
+          </div>
+          <div
+            className="filter-bar__secondary"
+            hidden={isDesktopMedia && !showSecondaryOptions}
+            id="filters-secondary"
+          >
+            <div className="filter-bar__section">
+              <FilterSelect
+                combobox
+                label="Resources"
+                name="resources"
+                options={resources}
+                selectAllLabel="Show all resources"
+                onClickView={(id) => {
+                  const resource = resources.find(
+                    (resource) => resource._id === id
+                  );
+                  if (resource) {
+                    window.open(resource.url, "_blank", "noreferrer");
+                  }
+                }}
+              />
+            </div>
+
+            {!isDesktopMedia && (
+              <div className="filter-bar__section">
+                <button
+                  className="button-outline filter-bar__button"
+                  onClick={() => {
+                    setSearchParams({});
+                  }}
+                  type="button"
+                >
+                  Show all
+                </button>
+              </div>
+            )}
+
+            <div className="filter-bar__section filter-bar__end-section">
+              <button
+                className="button-secondary"
+                type="button"
+                onClick={() => setShowInfoDialog(true)}
+              >
+                What do the stages mean?
+              </button>
+              <a
+                href="mailto:admin@sheffield.cityofsanctuary.org"
+                className="button-secondary"
+                type="button"
+              >
+                Send us feedback
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* 
-      {providers.length > 0 && (
-        <select multiple>
-          {providers.map((provider) => (
-            <option key={provider._id} value={provider._id}>
-              {provider.name}
-            </option>
-          ))}
-        </select>
+      {showInfoDialog && (
+        <InfoDialog onClose={() => setShowInfoDialog(false)} />
       )}
-
-      {resources.length > 0 && (
-        <select multiple>
-          {resources.map((resource) => (
-            <option key={resource._id} value={resource._id}>
-              {resource.name}
-            </option>
-          ))}
-        </select>
-      )} */}
-    </div>
+    </>
   );
 }

@@ -11,6 +11,12 @@ input:focus {
   outline: 2px solid var(--color-focus);
 }
 
+button {
+  cursor: pointer;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+}
+
 .button-primary {
   border: none;
   outline: none;
@@ -31,5 +37,123 @@ a.button-primary {
 
   &:hover {
     color: var(--color-white);
+  }
+}
+
+.button-secondary {
+  background: var(--grey-f);
+  border: none;
+  border-bottom: 2px solid var(--color-blue);
+  display: inline-block;
+  font-size: var(--font-size-small);
+  line-height: 1;
+  padding: var(--spacing);
+
+  &:hover {
+    outline: 2px solid var(--grey-d);
+  }
+}
+
+a.button-secondary {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.button-tertiary {
+  background: var(--grey-f);
+  border: none;
+  border-bottom: 2px solid var(--grey-d);
+  display: inline-block;
+  font-size: var(--font-size-small);
+  line-height: 1;
+  padding: var(--spacing);
+
+  &:hover {
+    outline: 2px solid var(--grey-d);
+  }
+}
+
+a.button-tertiary {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.button-outline {
+  background: none;
+  border: 1px solid var(--grey-d);
+  font-size: var(--font-size-small);
+  padding: calc(var(--spacing) * 1.5);
+  text-wrap: nowrap;
+
+  &:hover {
+    outline: 2px solid var(--grey-d);
+  }
+}
+
+.button-transparent {
+  background: none;
+  border: none;
+
+  &:hover {
+    outline: 2px solid var(--grey-d);
+  }
+}
+
+.button-arrow {
+  padding-right: var(--spacing-3);
+
+  &::after {
+    content: "";
+    border: solid var(--grey-b);
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    position: absolute;
+    right: 4px;
+    top: 6px;
+    transform: rotate(45deg);
+  }
+
+  &.active {
+    &::after {
+      top: 10px;
+      transform: rotate(-135deg);
+    }
+  }
+}
+
+.button-outline.button-arrow {
+  position: relative;
+  &::after {
+    right: 6px;
+    top: 18px;
+  }
+
+  &.active {
+    &::after {
+      top: 22px;
+      transform: rotate(-135deg);
+    }
+  }
+}
+
+.button-text {
+  border: none;
+  background: none;
+  color: #106da6;
+  padding: 0;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 0.1578em;
+
+  &:hover,
+  &:focus {
+    color: var(--color-dark-blue);
+    text-decoration-thickness: 2px;
+  }
+
+  &:focus-visible {
+    background-color: var(--color-focus);
+    outline: 2px solid transparent;
   }
 }

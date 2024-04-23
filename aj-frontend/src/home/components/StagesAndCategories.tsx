@@ -1,5 +1,4 @@
 import { Category, Stage } from "../../types/dataTypes";
-import orderByPosition from "../../utils/orderByPosition";
 import "./stagesAndCategories.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -54,7 +53,7 @@ export default function StagesAndCategories({
             <>
               <h2>Select a category</h2>
               <ul className="home-filters-list">
-                {orderByPosition(categories).map((category) => (
+                {categories.map((category) => (
                   <li key={category._id}>
                     <Link
                       className="home-filters-list__item home-filters-list__item--category"

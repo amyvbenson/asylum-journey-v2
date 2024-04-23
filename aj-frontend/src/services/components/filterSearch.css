@@ -1,0 +1,26 @@
+.filter-search {
+  position: relative;
+}
+
+.filter-search__input {
+  border: 1px solid var(--grey-d);
+  box-shadow: none;
+  font-size: var(--font-size-small);
+  padding: calc(var(--spacing) * 1.5) var(--spacing-6)
+    calc(var(--spacing) * 1.5) calc(var(--spacing) * 1.5);
+  height: 47px;
+  width: 100%;
+
+  &:hover {
+    outline: 2px solid var(--grey-d);
+  }
+}
+
+.filter-search__button {
+  background: none;
+  border: none;
+  height: 100%;
+  padding: 0;
+  position: absolute;
+  right: 0;
+}

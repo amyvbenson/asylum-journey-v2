@@ -5,22 +5,25 @@ import {
   DialogHeading,
 } from "@ariakit/react/dialog";
 import { ReactNode } from "react";
+import Loader from "./Loader";
 
 interface Props {
   children: ReactNode;
   heading?: string;
-  loading: boolean;
+  loading?: boolean;
   onClose: () => void;
 }
 
-export default function Dialog({ children, heading, loading, onClose }: Props) {
+export default function Dialog({
+  children,
+  heading,
+  loading = false,
+  onClose,
+}: Props) {
   return (
     <DialogComponent open onClose={onClose} className="dialog">
       {loading ? (
-        <div className="loader">
-          <img src="/public/loader-logo.svg" alt="" />
-          Loading...
-        </div>
+        <Loader />
       ) : (
         <>
           {heading && (

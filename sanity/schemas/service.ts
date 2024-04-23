@@ -16,6 +16,15 @@ export default {
       validation: (Rule: {required: () => any}) => Rule.required(),
     },
     {
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'name',
+      },
+      validation: (Rule: {required: () => any}) => Rule.required(),
+    },
+    {
       name: 'description',
       title: 'Description',
       type: 'array',

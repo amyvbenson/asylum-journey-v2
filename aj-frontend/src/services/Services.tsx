@@ -1,4 +1,3 @@
-// import { useParams, useSearchParams } from "react-router-dom";
 import {
   getServiceSummariesQuery,
   getCategoriesQuery,
@@ -7,22 +6,40 @@ import {
   getResourcesQuery,
 } from "../utils/queryBuilder";
 import useFetch from "../hooks/useFetch";
-import { useContext, useEffect, useState } from "react";
 import { DataContext, DataContextType } from "../contexts/dataContext";
-import { Category, ServiceSummary, Stage } from "../types/dataTypes";
+import {
+  Category,
+  Provider,
+  Resource,
+  ServiceSummary,
+  Stage,
+} from "../types/dataTypes";
 import Row from "./components/Row";
-import orderByPosition from "../utils/orderByPosition";
 import Filters from "./components/Filters";
 import Stages from "./components/Stages";
 import "./services.css";
-import ServiceComponent from "../service/Service";
+import ServiceDialog from "../service/ServiceDialog";
+import SearchDialog from "./components/SearchDialog";
+import ProviderDialog from "../provider/ProviderDialog";
+import { useContext, useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import Loader from "../components/Loader";
 
 export default function Services() {
-  // const { slug } = useParams();
-  // const [searchParams] = useSearchParams();
-  // console.log('searchParams', searchParams.get('stage'))
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedStages = searchParams.get("stages");
+  const selectedCategories = searchParams.get("categories");
+  const selectedProviders = searchParams.get("providers");
+  const selectedResources = searchParams.get("resources");
+  const searchTerm = searchParams.get("q");
+  const selectedService = searchParams.get("service");
+  const selectedProvider = searchParams.get("provider");
 
-  const [openService, setOpenService] = useState<string | undefined>(undefined);
+  const [showProviderDialog, setShowProviderDialog] = useState<string>();
+  const [showServiceDialog, setShowServiceDialog] = useState<
+    string | undefined
+  >(undefined);
+  const [showSearchDialog, setShowSearchDialog] = useState<string>();
 
   const {
     categories,
@@ -50,7 +67,7 @@ export default function Services() {
     if (fetchedServices) {
       setServiceSummaries(fetchedServices);
     }
-  }, [fetchedServices]);
+  }, [fetchedServices, setServiceSummaries]);
 
   const {
     loading: loadingCategories,
@@ -62,7 +79,7 @@ export default function Services() {
       setCategories(fetchedCategories);
       setFilteredCategories(fetchedCategories);
     }
-  }, [fetchedCategories]);
+  }, [fetchedCategories, setCategories]);
 
   const { loading: loadingStages, data: fetchedStages = [] as Stage[] } =
     useFetch(getStagesQuery(), !stages.length);
@@ -72,25 +89,67 @@ export default function Services() {
       setStages(fetchedStages);
       setFilteredStages(fetchedStages);
     }
-  }, [fetchedStages]);
+  }, [fetchedStages, setStages]);
 
-  const { loading: loadingProviders, data: fetchedProviders = [] as Stage[] } =
-    useFetch(getProvidersQuery(), !providers.length);
+  const {
+    loading: loadingProviders,
+    data: fetchedProviders = [] as Provider[],
+  } = useFetch(getProvidersQuery(), !providers.length);
 
   useEffect(() => {
     if (fetchedProviders) {
       setProviders(fetchedProviders);
     }
-  }, [fetchedProviders]);
+  }, [fetchedProviders, setProviders]);
 
-  const { loading: loadingResources, data: fetchedResources = [] as Stage[] } =
-    useFetch(getResourcesQuery(), !resources.length);
+  const {
+    loading: loadingResources,
+    data: fetchedResources = [] as Resource[],
+  } = useFetch(getResourcesQuery(), !resources.length);
 
   useEffect(() => {
     if (fetchedResources) {
       setResources(fetchedResources);
     }
-  }, [fetchedResources]);
+  }, [fetchedResources, setResources]);
+
+  useEffect(() => {
+    setFilteredStages(
+      selectedStages
+        ? stages.filter((stage) =>
+            selectedStages.split(",").includes(stage._id)
+          )
+        : stages
+    );
+  }, [selectedStages, stages, setFilteredStages]);
+
+  useEffect(() => {
+    setFilteredCategories(
+      selectedCategories
+        ? categories.filter((category) =>
+            selectedCategories.split(",").includes(category._id)
+          )
+        : categories
+    );
+  }, [selectedCategories, categories, setFilteredCategories]);
+
+  useEffect(() => {
+    setFilteredProviderIds(
+      selectedProviders ? selectedProviders.split(",") : []
+    );
+  }, [selectedProviders, setFilteredProviderIds]);
+
+  useEffect(() => {
+    setFilteredResourceIds(
+      selectedResources ? selectedResources.split(",") : []
+    );
+  }, [selectedResources, setFilteredResourceIds]);
+
+  useEffect(() => {
+    setShowProviderDialog(selectedProvider ? selectedProvider : undefined);
+    setShowSearchDialog(searchTerm ? searchTerm : undefined);
+    setShowServiceDialog(selectedService ? selectedService : undefined);
+  }, [selectedProvider, searchTerm, selectedService]);
 
   const isLoading =
     loadingCategories ||
@@ -99,64 +158,18 @@ export default function Services() {
     loadingResources ||
     loadingProviders;
 
-  function handleFilterCategories(selectedCategories: string[]) {
-    selectedCategories.length
-      ? setFilteredCategories(
-          categories.filter((category) =>
-            selectedCategories.includes(category._id)
-          )
-        )
-      : setFilteredCategories(categories);
-  }
-
-  function handleFilterProviders(selectedProviders: string[]) {
-    selectedProviders.length
-      ? setFilteredProviderIds(selectedProviders)
-      : setFilteredProviderIds([]);
-  }
-
-  function handleFilterResources(selectedResources: string[]) {
-    selectedResources.length
-      ? setFilteredResourceIds(selectedResources)
-      : setFilteredResourceIds([]);
-  }
-
-  function handleFilterStages(selectedStages: string[]) {
-    selectedStages.length
-      ? setFilteredStages(
-          stages.filter((stage) => selectedStages.includes(stage._id))
-        )
-      : setFilteredStages(stages);
-  }
-
-  function handleShowAll() {
-    setFilteredCategories(categories);
-    setFilteredProviderIds([]);
-    setFilteredResourceIds([]);
-    setFilteredStages(stages);
-  }
-
   return (
     <main>
       <div className="tool">
         {isLoading ? (
-          <div className="loader">
-            <img src="/public/loader-logo.svg" alt="" />
-            Loading...
-          </div>
+          <Loader />
         ) : (
           <>
-            <Filters
-              onFilterCategories={handleFilterCategories}
-              onFilterProviders={handleFilterProviders}
-              onFilterResources={handleFilterResources}
-              onFilterStages={handleFilterStages}
-              onShowAll={handleShowAll}
-            />
+            <Filters />
 
             <Stages stages={filteredStages} />
 
-            {orderByPosition(filteredCategories)?.map((category) => {
+            {filteredCategories.map((category) => {
               return (
                 <Row
                   key={category._id}
@@ -164,7 +177,12 @@ export default function Services() {
                   filteredProviderIds={filteredProviderIds}
                   filteredResourceIds={filteredResourceIds}
                   stages={filteredStages}
-                  onClickService={(serviceId) => setOpenService(serviceId)}
+                  onClickService={(slug) =>
+                    setSearchParams(() => {
+                      searchParams.set("service", slug);
+                      return searchParams;
+                    })
+                  }
                 />
               );
             })}
@@ -172,12 +190,11 @@ export default function Services() {
         )}
       </div>
 
-      {openService && (
-        <ServiceComponent
-          id={openService}
-          onClose={() => setOpenService(undefined)}
-        />
-      )}
+      {!!showProviderDialog && <ProviderDialog id={showProviderDialog} />}
+
+      {!!showServiceDialog && <ServiceDialog slug={showServiceDialog} />}
+
+      {!!showSearchDialog && <SearchDialog searchTerm={showSearchDialog} />}
     </main>
   );
 }

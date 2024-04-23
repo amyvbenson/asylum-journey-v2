@@ -24,10 +24,12 @@ export const DataContext = createContext<DataContextType | null>(null);
 
 const DataProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [categories, setCategories] = useState<Category[]>([]);
-  const [providers, setProviders] = useState<Category[]>([]);
-  const [stages, setStages] = useState<Category[]>([]);
-  const [resources, setResources] = useState<Category[]>([]);
-  const [serviceSummaries, setServiceSummaries] = useState<Category[]>([]);
+  const [providers, setProviders] = useState<Provider[]>([]);
+  const [stages, setStages] = useState<Stage[]>([]);
+  const [resources, setResources] = useState<Resource[]>([]);
+  const [serviceSummaries, setServiceSummaries] = useState<ServiceSummary[]>(
+    []
+  );
 
   return (
     <DataContext.Provider

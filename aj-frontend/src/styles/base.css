@@ -98,11 +98,6 @@ ol {
   margin: 0 0 var(--spacing-2) calc(var(--spacing) * 3);
 }
 
-button {
-  font-family: var(--font-family-base);
-  font-size: var(--font-size-base);
-}
-
 .sr-only {
   position: absolute;
   width: 1px;
@@ -111,6 +106,10 @@ button {
   margin: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
+}
+
+[hidden] {
+  content-visibility: hidden;
 }
 
 @media print {

@@ -4,6 +4,33 @@ interface Ref {
   _key: string;
 }
 
+export interface BlockLike {
+  _key: string;
+  _type: string;
+  children: {
+    _key: string;
+    _type: "span";
+    text: string;
+    /**
+     * Non-explicit strings will be the key of
+     * one of the {@property markDefs}.
+     */
+    marks: (
+      | "underline"
+      | "strong"
+      | "em"
+      | "code"
+      | "strike-through"
+      | string
+    )[];
+  }[];
+}
+
+interface Slug {
+  _type: "slug";
+  current: string;
+}
+
 export interface Category {
   _id: string;
   name: string;
@@ -17,7 +44,9 @@ export interface Stage {
 
 export interface ServiceSummary {
   _id: string;
+  slug: Slug;
   name: string;
+  description: BlockLike[];
   providers?: { _id: string }[];
   categories?: Ref[];
   resources?: { _id: string }[];
@@ -26,12 +55,13 @@ export interface ServiceSummary {
 
 export interface Service {
   _id: string;
+  slug: Slug;
   name: string;
   categories?: Category[];
   dataMaintainer?: string;
-  description?: any[];
+  description: BlockLike[];
   endDate?: string;
-  events?: any[];
+  events?: BlockLike[];
   externalReviews?: string;
   lastReviewComments?: string;
   lastReviewDate?: string;
@@ -44,7 +74,7 @@ export interface Service {
 export interface Provider {
   _id: string;
   name: string;
-  description?: any[];
+  description: BlockLike[];
   phone?: string;
   email?: string;
   website?: string;
@@ -72,4 +102,13 @@ export interface Resource {
   lastReviewComments?: string;
   nextReviewDate?: string;
   nextReviewComments?: string;
+}
+
+export interface SearchResult {
+  _id: string;
+  _type: string;
+  slug: Slug;
+  name: string;
+  description?: BlockLike[];
+  url?: string;
 }

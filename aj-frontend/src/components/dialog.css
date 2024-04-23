@@ -12,7 +12,6 @@
   min-height: 50dvh;
   max-height: calc(100dvh - 2 * 0.75rem);
   flex-direction: column;
-  gap: 1rem;
   overflow: auto;
   border-radius: 5px;
   background-color: var(--color-white);
@@ -50,15 +49,36 @@
   top: calc(var(--spacing) * 2);
 }
 
+.dialog-actions {
+  margin-bottom: var(--spacing-2);
+
+  .button-tertiary,
+  .button-secondary {
+    margin-right: var(--spacing);
+  }
+}
+
+.dialog-footer {
+  border-top: 1px solid var(--grey-d);
+
+  padding-top: var(--spacing-2);
+}
+
+.dialog-footer__link {
+  align-items: center;
+  display: flex;
+
+  label {
+    margin-right: var(--spacing);
+  }
+
+  input {
+    flex-grow: 1;
+  }
+}
+
 @media print {
   .dialog {
     display: none;
-    /* box-shadow: none;
-    position: relative;
-    overflow: visible;
-    height: auto;
-    max-height: none;
-    max-width: none;
-    width: auto; */
   }
 }

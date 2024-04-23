@@ -1,0 +1,29 @@
+.search-results {
+  display: flex;
+}
+
+.search-results__list {
+  flex-basis: 33.33%;
+  padding-right: var(--spacing-3);
+
+  h2 {
+    font-size: var(--font-size-base);
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+  }
+
+  li {
+    border-bottom: 1px solid var(--grey-e);
+  }
+
+  p {
+    font-size: var(--font-size-small);
+  }
+
+  &:last-child {
+    padding-right: 0;
+  }
+}

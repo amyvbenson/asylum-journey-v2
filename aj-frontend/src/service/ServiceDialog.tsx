@@ -1,23 +1,21 @@
 import useFetch from "../hooks/useFetch";
 import { getServiceQuery } from "../utils/queryBuilder";
 import { Service as ServiceType } from "../types/dataTypes";
-
-import { PortableText } from "@portabletext/react";
-
 import Provider from "./components/Provider";
 import Dialog from "../components/Dialog";
 import "./service.css";
 import { DisclosureProvider } from "@ariakit/react/disclosure";
-import { useState } from "react";
+import { PortableText } from "@portabletext/react";
+import { useSearchParams } from "react-router-dom";
 
 interface Props {
-  id: string;
-  onClose: () => void;
+  slug: string;
 }
 
-export default function Service({ id, onClose }: Props) {
+export default function ServiceDialog({ slug }: Props) {
+  const [searchParams, setSearchParams] = useSearchParams();
   const { loading, data: serviceArray = [] as ServiceType[] } = useFetch(
-    getServiceQuery(id)
+    getServiceQuery(slug)
   );
 
   const service = serviceArray?.[0];
@@ -27,13 +25,16 @@ export default function Service({ id, onClose }: Props) {
       <Dialog
         heading={getHeading({ loading, service })}
         loading={loading}
-        onClose={onClose}
+        onClose={() => {
+          searchParams.delete("service");
+          setSearchParams(searchParams);
+        }}
       >
         {service ? (
           <>
-            <div className="print-hidden">
+            <div className="dialog-actions print-hidden">
               <button
-                className="button service__print-button"
+                className="button-tertiary"
                 type="button"
                 onClick={() => {
                   if (window) {
@@ -44,7 +45,7 @@ export default function Service({ id, onClose }: Props) {
                 Print
               </button>
               <a
-                className="button service__feedback-link"
+                className="button-secondary"
                 href={`mailto:admin@sheffield.cityofsanctuary.org?subject=Asylum Journey Service Feedback: ${service.name}`}
               >
                 Send us feedback
@@ -93,7 +94,7 @@ export default function Service({ id, onClose }: Props) {
               </div>
             </div>
 
-            <div className="service__bottom">
+            <div className="dialog-footer">
               <ul className="tag-list">
                 {service.stages?.map((stage) => (
                   <li
@@ -109,6 +110,14 @@ export default function Service({ id, onClose }: Props) {
                   </li>
                 ))}
               </ul>
+              <div className="dialog-footer__link">
+                <label htmlFor="provider-link">Permanent link:</label>
+                <input
+                  type="text"
+                  readOnly
+                  value={`https://asylumjourney.org.uk/services?service=${service.slug.current}`}
+                />
+              </div>
             </div>
           </>
         ) : (

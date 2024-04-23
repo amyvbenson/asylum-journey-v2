@@ -1,12 +1,11 @@
 .tool {
-  padding: 44px 0 0 0;
   padding-bottom: calc(var(--spacing) * 9);
 
   @media (min-width: 768px) {
-    padding-top: 80px;
+    /* padding-top: 80px; */
   }
 
-  &.filters-open {
+  /* &.filters-open {
     padding-top: 202px;
 
     @media (min-width: 768px) {
@@ -16,7 +15,7 @@
     @media (min-width: 1200px) {
       padding-top: calc(var(--spacing) * 13);
     }
-  }
+  } */
 
   ul {
     list-style: none;

@@ -1,6 +1,10 @@
+import "./filterSelect.css";
 import {
-  DialogDismiss,
-  DialogHeading,
+  Combobox,
+  ComboboxItem,
+  ComboboxItemCheck,
+  ComboboxList,
+  ComboboxProvider,
   Select,
   SelectArrow,
   SelectItem,
@@ -9,47 +13,64 @@ import {
   SelectPopover,
   SelectProvider,
 } from "@ariakit/react";
-import "./filterSelect.css";
-import { useEffect, useState } from "react";
+import { startTransition, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 interface Option {
   _id: string;
   name: string;
 }
+
 interface Props {
   label: string;
-  modal?: boolean;
+  combobox?: boolean;
+  name: string;
   options: Option[];
-  reset?: boolean;
   selectAllLabel: string;
-  onChange: (values: string[]) => void;
+  onClickView?: (id: string) => void;
 }
+
 export default function FilterSelect({
   label,
-  modal = false,
+  combobox = false,
+  name,
   options,
-  reset,
   selectAllLabel,
-  onChange,
+  onClickView,
 }: Props) {
-  const [selectedValues, setSelectedValues] = useState<string[]>([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialValue = searchParams.get(name);
+
+  const [selectedValues, setSelectedValues] = useState<string[]>(
+    initialValue ? initialValue.split(",") : []
+  );
 
   useEffect(() => {
-    onChange(selectedValues);
-  }, [selectedValues]);
-
-  useEffect(() => {
-    if (reset) {
+    if (!initialValue && selectedValues.length) {
       setSelectedValues([]);
     }
-  }, [reset]);
+  }, [initialValue, selectedValues]);
+
+  function handleChange(values: string[]) {
+    if (values.length) {
+      setSearchParams(() => {
+        searchParams.set(name, values.join(","));
+        return searchParams;
+      });
+    } else {
+      searchParams.delete(name);
+      setSearchParams(searchParams);
+    }
+
+    setSelectedValues(values);
+  }
 
   function renderValue(values: string[]) {
     return (
       <>
-        <strong>{label}:</strong>
+        <strong>{label}:&nbsp;</strong>
         {values.length === 0 || values.length === options.length ? (
-          <>&nbsp;All</>
+          <>All</>
         ) : (
           <span>
             {options.find((option) => option._id === values[0])?.name}
@@ -64,8 +85,105 @@ export default function FilterSelect({
     );
   }
 
+  const [searchValue, setSearchValue] = useState("");
+
+  const filteredOptions = useMemo(() => {
+    return options.filter((option) =>
+      option.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+  }, [options, searchValue]);
+
+  if (combobox) {
+    return (
+      <>
+        <ComboboxProvider
+          resetValueOnHide
+          setValue={(value) => {
+            startTransition(() => {
+              setSearchValue(value);
+            });
+          }}
+        >
+          <SelectProvider value={selectedValues} setValue={handleChange}>
+            <SelectLabel className="sr-only">{label}</SelectLabel>
+            <Select
+              className={`filter__toggle ${
+                selectedValues.length > 1 ? "filter__toggle--many" : ""
+              }`}
+            >
+              {renderValue(selectedValues)}
+              <SelectArrow className="filter__toggle-arrow" />
+            </Select>
+            <SelectPopover
+              className="filter-dropdown"
+              flip="bottom"
+              gutter={4}
+              hideOnInteractOutside
+              sameWidth
+              unmountOnHide
+            >
+              <div className="combobox-wrapper">
+                <Combobox placeholder="Search" focusOnMove={false} />
+              </div>
+              <ComboboxList>
+                {filteredOptions.map((option) => (
+                  <SelectItem
+                    key={option._id}
+                    value={option._id}
+                    className="filter-item filter-item--combobox"
+                    render={<ComboboxItem />}
+                  >
+                    <span className="filter-item__inner">
+                      <ComboboxItemCheck
+                        render={() => <span className="filter-item-check" />}
+                      />
+                      {option.name}
+                    </span>
+                    <button
+                      className="button-tertiary"
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        onClickView?.(option._id);
+                      }}
+                    >
+                      View
+                    </button>
+                  </SelectItem>
+                ))}
+                {!filteredOptions.length && (
+                  <div className="no-results">No results found</div>
+                )}
+
+                <SelectItem
+                  className="filter-item filter-item--all"
+                  value="all"
+                  setValueOnClick={false}
+                  render={
+                    <ComboboxItem
+                      render={(renderProps) => {
+                        return (
+                          <div
+                            {...renderProps}
+                            onClick={() => handleChange([])}
+                          >
+                            {selectAllLabel}
+                          </div>
+                        );
+                      }}
+                    />
+                  }
+                ></SelectItem>
+              </ComboboxList>
+            </SelectPopover>
+          </SelectProvider>
+        </ComboboxProvider>
+      </>
+    );
+  }
+
   return (
-    <SelectProvider value={selectedValues} setValue={setSelectedValues}>
+    <SelectProvider value={selectedValues} setValue={handleChange}>
       <SelectLabel className="sr-only">{label}</SelectLabel>
       <Select
         className={`filter__toggle ${
@@ -76,55 +194,32 @@ export default function FilterSelect({
         <SelectArrow className="filter__toggle-arrow" />
       </Select>
       <SelectPopover
+        className="filter-dropdown"
         gutter={4}
         hideOnInteractOutside
-        sameWidth={!modal}
+        sameWidth
         unmountOnHide
-        modal={modal}
-        className={`popover ${modal ? "popover-modal" : ""}`}
       >
         <>
-          {modal && (
-            <DialogHeading className="dialog__heading">
-              {label}
-              <DialogDismiss className="dialog__close print-hidden">
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  width="24"
-                  height="24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  ></path>
-                </svg>
-                <span className="sr-only">Close</span>
-              </DialogDismiss>
-            </DialogHeading>
-          )}
           {options.map((option) => (
             <SelectItem
               key={option._id}
               value={option._id}
-              className="select-item"
+              className="filter-item"
             >
               <SelectItemCheck
-                render={() => <span className="select-item-check" />}
+                render={() => <span className="filter-item-check" />}
               />
               {option.name}
             </SelectItem>
           ))}
           <SelectItem
-            className="select-item select-item--all"
+            className="filter-item filter-item--all"
             value="all"
             setValueOnClick={false}
             render={(renderProps) => {
               return (
-                <div {...renderProps} onClick={() => setSelectedValues([])}>
+                <div {...renderProps} onClick={() => handleChange([])}>
                   {selectAllLabel}
                 </div>
               );
