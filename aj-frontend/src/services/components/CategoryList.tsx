@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import { DataContext, DataContextType } from "../../contexts/dataContext";
 import { Category, ServiceSummary, Stage } from "../../types/dataTypes";
-import "./row.css";
+import "./categoryList.css";
+import StageList from "./StageList";
 
 interface Props {
   category: Category;
@@ -11,7 +12,7 @@ interface Props {
   onClickService: (serviceId: string) => void;
 }
 
-export default function Row({
+export default function CategoryList({
   category,
   filteredProviderIds = [],
   filteredResourceIds = [],
@@ -42,11 +43,11 @@ export default function Row({
   });
 
   return (
-    <div className="row">
-      <h2 className="row__heading">{category.name}</h2>
+    <div className="categoryList">
+      <h2 className="categoryList__heading">{category.name}</h2>
       {stages.map((stage) => {
         return (
-          <Column
+          <StageList
             key={stage._id}
             stage={stage}
             serviceSummaries={filteredServiceSummaries}
@@ -55,35 +56,5 @@ export default function Row({
         );
       })}
     </div>
-  );
-}
-
-interface ColumnProps {
-  serviceSummaries: ServiceSummary[];
-  stage: Stage;
-  onClickService: (slug: string) => void;
-}
-
-function Column({ serviceSummaries, stage, onClickService }: ColumnProps) {
-  const services = serviceSummaries.filter((service) =>
-    service.stages?.find((stageRef) => stageRef._ref === stage._id)
-  );
-
-  return (
-    <ul className="column">
-      {services.map((item) => {
-        return (
-          <li key={item._id}>
-            <button
-              className={`service-summary border-${stage._id}`}
-              onClick={() => onClickService(item.slug.current)}
-              type="button"
-            >
-              {item.name}
-            </button>
-          </li>
-        );
-      })}
-    </ul>
   );
 }

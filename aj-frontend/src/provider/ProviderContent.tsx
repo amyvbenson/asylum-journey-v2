@@ -53,9 +53,8 @@ export default function ProviderContent({ provider }: { provider: Provider }) {
   );
 }
 
-// TO DO make this work
 function getMapLink(provider: Provider) {
-  const googleMapsUrl = "https://www.google.co.uk/maps/place/";
+  const googleMapsUrl = "https://www.google.co.uk/maps/search/?api=1&query=";
   return (
     googleMapsUrl +
     [provider.address, provider.postcode].join(" ").replace(/\s/g, "+")

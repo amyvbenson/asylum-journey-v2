@@ -20,4 +20,9 @@
 
 .provider__content {
   padding-bottom: calc(var(--spacing) * 2);
+
+  @media print {
+    content-visibility: visible !important;
+    display: block !important;
+  }
 }

@@ -6,11 +6,8 @@ export function getServiceSummariesQuery() {
 }
 
 export function getServiceQuery(slug: string) {
-  // const query = encodeURIComponent(
-  //   `*[_id == "${id}"]{..., categories[]->, providers[]->, resources[]->, stages[]-> }`
-  // );
   const query = encodeURIComponent(
-    `*[slug.current == "${slug}"]{..., categories[]->, providers[]->, resources[]->, stages[]-> }`
+    `*[slug.current == "${slug}"]{_id, slug, name, description, events, categories[]->, providers[]->, resources[]->, stages[]-> }`
   );
   return query;
 }
@@ -23,7 +20,9 @@ export function getCategoriesQuery() {
 }
 
 export function getProvidersQuery() {
-  const query = encodeURIComponent('*[_type == "provider"]  | order(name asc)');
+  const query = encodeURIComponent(
+    '*[_type == "provider"]{_id, name, description,postcode, website, address, contactName, twitter, phone, email, facebook}  | order(name asc)'
+  );
   return query;
 }
 

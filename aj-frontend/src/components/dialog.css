@@ -1,5 +1,9 @@
 [data-backdrop] {
   background-color: rgba(0, 0, 0, 0.4);
+
+  @media print {
+    display: none;
+  }
 }
 
 .dialog {
@@ -26,6 +30,20 @@
     margin-top: 0;
     max-height: 90vh;
     padding: calc(var(--spacing) * 3);
+  }
+
+  @media print {
+    display: block;
+    position: relative;
+    max-height: none;
+    height: auto;
+    padding: 0;
+    width: 100%;
+    max-width: none;
+    overflow: scroll;
+    box-shadow: none;
+    top: 0;
+    bottom: auto;
   }
 }
 
@@ -74,11 +92,5 @@
 
   input {
     flex-grow: 1;
-  }
-}
-
-@media print {
-  .dialog {
-    display: none;
   }
 }

@@ -1,4 +1,4 @@
-.tool-stages {
+.stages {
   display: flex;
   position: fixed;
   z-index: 10;
@@ -8,94 +8,37 @@
   left: 0;
   margin: 0;
 
-  /* // required to force text to wrap in IE10
-  .tool-stages__stage {
-    position: relative;
-    span {
-      max-width: 100%;
-      display: block;
-      height: 28px;
-      overflow: hidden;
-    }
-    button {
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
-  } */
-}
-
-.tool-stages__stage {
-  flex: 1 1;
-  min-width: 0;
-}
-
-.tool-stages__stage.brand {
-  width: percentage(1 / var(--numColumnsSmall));
-  /* flex: none; */
-
-  @media (min-width: 980px) {
-    width: percentage(1 / var(--numColumns));
+  @media print {
+    display: none;
   }
 }
 
-.tool-stages__stage {
+.stages__stage {
+  flex: 1 1;
+  min-width: 0;
   height: 100%;
-  align-items: center;
   display: flex;
-  padding: var(--spacing);
-  color: white;
-  font-size: 12px;
+  padding: 0 var(--spacing);
+  color: var(--color-white);
+  font-size: var(--font-size-small);
   line-height: 1.2;
   font-weight: bold;
   overflow: hidden;
   background: var(--stage-11-color);
 
-  &.brand {
+  @media (min-width: 980px) {
+    align-items: center;
+    padding: var(--spacing);
+  }
+}
+
+.stages__stage.brand {
+  display: none;
+
+  @media (min-width: 980px) {
+    display: flex;
+    width: calc(100% / var(--numColumns));
+    flex: none;
     background: none;
-  }
-
-  &.tool-stages__stage-1 {
-    background: var(--stage-1-color);
-  }
-  &.tool-stages__stage-2 {
-    background: var(--stage-2-color);
-  }
-  &.tool-stages__stage-3 {
-    background: var(--stage-3-color);
-  }
-  &.tool-stages__stage-4 {
-    background: var(--stage-4-color);
-  }
-  &.tool-stages__stage-5 {
-    background: var(--stage-5-color);
-  }
-  &.tool-stages__stage-6 {
-    background: var(--stage-6-color);
-  }
-  &.tool-stages__stage-7 {
-    background: var(--stage-7-color);
-  }
-  &.tool-stages__stage-11 {
-    background: var(--stage-11-color);
-  }
-
-  &.brand {
-    display: none;
-
-    @media (min-width: 980px) {
-      display: block;
-    }
-    h1 {
-      font-weight: 400;
-      display: inline-block;
-    }
-    img {
-      display: inline-block;
-      height: 30px;
-      position: relative;
-      top: -5px;
-      padding-right: 5px;
-    }
   }
 }

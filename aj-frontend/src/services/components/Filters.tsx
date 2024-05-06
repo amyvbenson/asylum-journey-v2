@@ -29,7 +29,7 @@ export default function Filters() {
 
   return (
     <>
-      <div className={`filter-bar ${showFilters ? "active" : ""}`}>
+      <div className={`filter-bar print-hidden ${showFilters ? "active" : ""}`}>
         <h1 className="filter-bar-logo">
           <Link to="../" className="filter-bar-logo__link">
             <img src="../logo-basic.png" alt="The Asylum Journey" />

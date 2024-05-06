@@ -1,24 +1,11 @@
-.tool {
+.services {
   padding-bottom: calc(var(--spacing) * 9);
 
-  @media (min-width: 768px) {
-    /* padding-top: 80px; */
-  }
-
-  /* &.filters-open {
-    padding-top: 202px;
-
-    @media (min-width: 768px) {
-      padding-top: 148px;
-    }
-
-    @media (min-width: 1200px) {
-      padding-top: calc(var(--spacing) * 13);
-    }
+  /* @media print {
+    display: none;
   } */
+}
 
-  ul {
-    list-style: none;
-    padding: 0;
-  }
+.services__inner {
+  overflow-x: auto;
 }

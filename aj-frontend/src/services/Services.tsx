@@ -14,16 +14,16 @@ import {
   ServiceSummary,
   Stage,
 } from "../types/dataTypes";
-import Row from "./components/Row";
+import CategoryList from "./components/CategoryList";
 import Filters from "./components/Filters";
 import Stages from "./components/Stages";
+import Loader from "../components/Loader";
 import "./services.css";
 import ServiceDialog from "../service/ServiceDialog";
 import SearchDialog from "./components/SearchDialog";
 import ProviderDialog from "../provider/ProviderDialog";
 import { useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import Loader from "../components/Loader";
 
 export default function Services() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -160,32 +160,37 @@ export default function Services() {
 
   return (
     <main>
-      <div className="tool">
+      <div
+        className={`services ${
+          selectedService || selectedProvider ? "print-hidden" : ""
+        }`}
+      >
         {isLoading ? (
           <Loader />
         ) : (
           <>
             <Filters />
+            <div className="services__inner">
+              {filteredCategories.map((category) => {
+                return (
+                  <CategoryList
+                    key={category._id}
+                    category={category}
+                    filteredProviderIds={filteredProviderIds}
+                    filteredResourceIds={filteredResourceIds}
+                    stages={filteredStages}
+                    onClickService={(slug) =>
+                      setSearchParams(() => {
+                        searchParams.set("service", slug);
+                        return searchParams;
+                      })
+                    }
+                  />
+                );
+              })}
 
-            <Stages stages={filteredStages} />
-
-            {filteredCategories.map((category) => {
-              return (
-                <Row
-                  key={category._id}
-                  category={category}
-                  filteredProviderIds={filteredProviderIds}
-                  filteredResourceIds={filteredResourceIds}
-                  stages={filteredStages}
-                  onClickService={(slug) =>
-                    setSearchParams(() => {
-                      searchParams.set("service", slug);
-                      return searchParams;
-                    })
-                  }
-                />
-              );
-            })}
+              <Stages stages={filteredStages} />
+            </div>
           </>
         )}
       </div>
