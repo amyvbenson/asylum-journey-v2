@@ -6,8 +6,13 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "build:staging": "tsc && npm run robots:staging && vite build --mode staging",
+    "build:production": "tsc && npm run robots:production && vite build --mode production",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy:staging": "npm run build:staging && firebase deploy -P staging",
+    "robots:staging": "node -e \"require('fs').copyFile('robots/robots-staging.txt', 'public/robots.txt', function(err) { if (err) console.log(err); console.log('Staging robots.txt generated.') })\"",
+    "robots:production": "node -e \"require('fs').unlink('public/robots.txt', function(err) { if (err) console.log(err); console.log('Robots file deleted') })\""
   },
   "dependencies": {
     "@ariakit/react": "^0.4.1",
@@ -17,6 +22,7 @@
     "@sanity/schema": "^3.28.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-ga4": "^2.1.0",
     "react-router-dom": "^6.22.0"
   },
   "devDependencies": {

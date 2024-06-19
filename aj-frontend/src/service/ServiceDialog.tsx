@@ -115,7 +115,9 @@ export default function ServiceDialog({ slug }: Props) {
                 <input
                   type="text"
                   readOnly
-                  value={`https://asylumjourney.org.uk/services?service=${service.slug.current}`}
+                  value={`${import.meta.env.VITE_PUBLIC_URL}services?service=${
+                    service.slug.current
+                  }`}
                 />
               </div>
             </div>

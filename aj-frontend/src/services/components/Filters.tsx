@@ -27,6 +27,16 @@ export default function Filters() {
     setShowFilters(isDesktopMedia);
   }, [isDesktopMedia]);
 
+  const orderedCategories = categories.sort(function (a, b) {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  });
+
   return (
     <>
       <div className={`filter-bar print-hidden ${showFilters ? "active" : ""}`}>
@@ -64,7 +74,7 @@ export default function Filters() {
               <FilterSelect
                 label="Categories"
                 name="categories"
-                options={categories}
+                options={orderedCategories}
                 selectAllLabel="Show all categories"
               />
             </div>

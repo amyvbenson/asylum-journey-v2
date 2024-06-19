@@ -44,4 +44,9 @@ Install Sanity CLI tools npm install -g @sanity/cli
 
 `npm run dev`
 
-## Building
+## Building and deploying
+
+Requires firebase tools https://www.npmjs.com/package/firebase-tools and access to the AJ firebase account.
+
+`npm run build`
+`firebase deploy`
