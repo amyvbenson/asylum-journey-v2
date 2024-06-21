@@ -123,7 +123,7 @@ export default function ServiceDialog({ slug }: Props) {
             </div>
           </>
         ) : (
-          <p>Not found</p>
+          <p>Service not found.</p>
         )}
       </Dialog>
     </>
