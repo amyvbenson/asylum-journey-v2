@@ -28,7 +28,7 @@ function AppRoutes() {
   const location = useLocation();
   const [analyticsInitialized, setAnalyticsInitialized] = useState(false);
   useEffect(() => {
-    ReactGA.initialize("G-QMB4B88EME");
+    ReactGA.initialize(import.meta.env.VITE_GA);
     setAnalyticsInitialized(true);
   }, []);
 

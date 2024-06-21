@@ -1,6 +1,7 @@
 {
   "projects": {
     "default": "aj-staging",
+    "production": "aj-production",
     "staging": "aj-staging"
   }
 }
