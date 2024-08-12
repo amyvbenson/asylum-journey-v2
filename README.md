@@ -28,8 +28,6 @@ copy `.env.example` to `.env` and populate the values (these can be found in San
 
 `npm run dev`
 
-env vars
-
 ### Sanity
 
 Install Sanity CLI tools npm install -g @sanity/cli
