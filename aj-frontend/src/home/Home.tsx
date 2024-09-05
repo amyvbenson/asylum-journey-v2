@@ -5,6 +5,7 @@ import "./home.css";
 import Header from "./components/Header";
 import Search from "./components/Search";
 import StagesAndCategories from "./components/StagesAndCategories";
+import Banner from "../components/Banner";
 import { useContext, useEffect } from "react";
 
 interface Category {
@@ -44,6 +45,7 @@ export default function Home() {
   return (
     <main>
       <Header />
+      <Banner />
       <div className="home-container home-main">
         <Search />
         <StagesAndCategories

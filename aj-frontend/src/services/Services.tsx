@@ -23,6 +23,7 @@ import ServiceDialog from "../service/ServiceDialog";
 import SearchDialog from "./components/SearchDialog";
 import ProviderDialog from "../provider/ProviderDialog";
 import { useContext, useEffect, useState } from "react";
+import Banner from "../components/Banner";
 import { useSearchParams } from "react-router-dom";
 
 export default function Services() {
@@ -165,6 +166,7 @@ export default function Services() {
           selectedService || selectedProvider ? "print-hidden" : ""
         }`}
       >
+        <Banner />
         {isLoading ? (
           <Loader />
         ) : (
